@@ -83,36 +83,40 @@ public class StartCheck {
 
               for (File file : filesForcheck.directoryWithInputFiles){
                   String lineFromInputFile =  filesForcheck.getLineFromInputFile(file.getAbsolutePath());
-                       Properties inputProperty = filesForcheck.getProperties(file);
-                  //строка-шаблон в результате замены переменных, взятых из файла-свойств
-                  String lineAfterReplaceInTemplate = filesForcheck.lineForComparison(fileTemplate.lineFromTemplate, inputProperty);
 
-                  int indexlocalNameFile = file.getAbsolutePath().lastIndexOf("\\");
-                  String localNameFile = file.getAbsolutePath().substring(indexlocalNameFile, file.getAbsolutePath().length());
+                  if (lineFromInputFile.contains("HEADER DESCRIPTION")) {
+                      Properties inputProperty = filesForcheck.getProperties(file);
+                      //строка-шаблон в результате замены переменных, взятых из файла-свойств
+                      String lineAfterReplaceInTemplate = filesForcheck.lineForComparison(fileTemplate.lineFromTemplate, inputProperty);
 
-                  String nameCorrectInputFile = directoryForCorrectInputFile.getAbsolutePath() + localNameFile;
+                      int indexlocalNameFile = file.getAbsolutePath().lastIndexOf("\\");
+                      String localNameFile = file.getAbsolutePath().substring(indexlocalNameFile, file.getAbsolutePath().length());
 
-                        File correctFile = new File(nameCorrectInputFile);
+                      String nameCorrectInputFile = directoryForCorrectInputFile.getAbsolutePath() + localNameFile;
 
-                                // создаём пустые файлы для записи
-                           if (correctFile.createNewFile()){
+                      File correctFile = new File(nameCorrectInputFile);
 
-
-
-                               if (lineFromInputFile.equals(lineAfterReplaceInTemplate)) {
-                                   filesForcheck.writeDataInFile(correctFile.getAbsolutePath(), lineFromInputFile);
-
-                                   }
-                               else {
-                                   filesForcheck.writeDataInFile(correctFile.getAbsolutePath(), lineAfterReplaceInTemplate);
-                                String failInputFile = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1, file.getAbsolutePath().length());
-
-                                   listWithErrorInputFile.add("Был изменён входной файл:" + failInputFile);
-                               }
-
-                           }
+                      // создаём пустые файлы для записи
+                      if (correctFile.createNewFile()) {
 
 
+                          if (lineFromInputFile.equals(lineAfterReplaceInTemplate)) {
+                              filesForcheck.writeDataInFile(correctFile.getAbsolutePath(), lineFromInputFile);
+
+                          } else {
+                              filesForcheck.writeDataInFile(correctFile.getAbsolutePath(), lineAfterReplaceInTemplate);
+                              String failInputFile = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\") + 1, file.getAbsolutePath().length());
+
+                              listWithErrorInputFile.add("Was changed input file:" + failInputFile);
+                          }
+
+                      }
+
+                  }
+
+                  else{
+                      continue;
+                  }
 
             }
 

@@ -1,0 +1,30 @@
+********************************
+*     HEADER DESCRIPTION       *
+********************************
+Customer:Tele2
+Region:RSA
+Quantity:105
+Type:eSIM B2C
+*
+Batch:0038
+*
+TransportKey:021
+*
+Profile:TFRUYT2YY0000N00E_ecpr_B2C
+Graphical_profile:eSIM GP
+*
+SMSC_number1:+79043490000
+*
+*******************************
+*   INPUT VARIABLES           *
+*******************************
+*
+Var_in_list:
+ICCID:8970120256270000465
+IMSI1:250204200762880
+
+*
+*******************************
+*   OUTPUT VARIABLES          *
+*******************************
+var_out:IMSI1/ICCID/EKI/PUK1/PUK2/PIN1/PIN2/ADM/KIC1/KID1/KIK1/KIC2/KID2/KIK2/KIC3/KID3/KIK3
